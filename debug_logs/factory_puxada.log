@@ -1,0 +1,264 @@
+Day 1
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 2
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 3
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 4
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 5
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 6
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 7
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 8
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 9
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 10
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 11
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 12
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 13
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 14
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 15
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 16
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 17
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 18
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 19
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 20
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Day 21
+Order to line: L0, P0, Qtd=96
+Order to line: L1, P1, Qtd=96
+Order to line: L2, P2, Qtd=96
+Order to line: L3, P3, Qtd=96
+Order to line: L4, P4, Qtd=96
+Order to line: L5, P0, Qtd=96
+Order to line: L6, P1, Qtd=96
+Order to line: L7, P2, Qtd=96
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
+Stock buffer: [0, 0, 0, 0, 0]
+Most needed: [0, 1, 2]
