@@ -3,7 +3,7 @@
 import os
 
 # Configurações de conexão Redis
-REDIS_HOST = 'localhost'
+REDIS_HOST = 'redis' # <<< O nome do serviço do Redis no docker-compose
 REDIS_PORT = 6379
 
 # Intervalo de tempo entre "dias" na simulação (em segundos)

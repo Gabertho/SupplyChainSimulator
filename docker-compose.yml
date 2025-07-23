@@ -1,0 +1,93 @@
+# A linha "version" foi removida, conforme o aviso.
+
+# Definimos uma base de configuração para todos os nossos serviços Python para evitar repetição.
+x-base-service: &base-service
+  build: .
+  volumes:
+    - .:/app
+  depends_on:
+    redis:
+      condition: service_healthy
+
+services:
+  # --- SERVIÇO DE BANCO DE DADOS ---
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # --- SERVIÇO DE INICIALIZAÇÃO (roda uma vez e sai) ---
+  init_db:
+    <<: *base-service
+    command: python init_redis.py
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  # --- SERVIÇOS DA SIMULAÇÃO ---
+  supplier:
+    <<: *base-service
+    command: python supplier_redis.py
+    depends_on:
+      init_db:
+        condition: service_completed_successfully
+
+  warehouse:
+    <<: *base-service
+    command: python warehouse_redis.py
+    depends_on:
+      init_db:
+        condition: service_completed_successfully
+  
+  product_stock:
+    <<: *base-service
+    command: python product_stock_redis.py
+    depends_on:
+      init_db:
+        condition: service_completed_successfully
+
+  factory-1:
+    <<: *base-service
+    command: python factory_redis.py empurrada 1 5
+    depends_on:
+      init_db:
+        condition: service_completed_successfully
+
+  factory-2:
+    <<: *base-service
+    command: python factory_redis.py puxada 2 8
+    depends_on:
+      init_db:
+        condition: service_completed_successfully
+
+  # --- SERVIÇOS DAS LINHAS DE PRODUÇÃO ---
+  line-f1-l1: { <<: *base-service, command: python line_redis.py 1 1, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f1-l2: { <<: *base-service, command: python line_redis.py 2 1, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f1-l3: { <<: *base-service, command: python line_redis.py 3 1, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f1-l4: { <<: *base-service, command: python line_redis.py 4 1, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f1-l5: { <<: *base-service, command: python line_redis.py 5 1, depends_on: { init_db: { condition: service_completed_successfully } } }
+
+  line-f2-l1: { <<: *base-service, command: python line_redis.py 1 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f2-l2: { <<: *base-service, command: python line_redis.py 2 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f2-l3: { <<: *base-service, command: python line_redis.py 3 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  # <<< CORREÇÃO: "init__db" foi trocado para "init_db" >>>
+  line-f2-l4: { <<: *base-service, command: python line_redis.py 4 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f2-l5: { <<: *base-service, command: python line_redis.py 5 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f2-l6: { <<: *base-service, command: python line_redis.py 6 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f2-l7: { <<: *base-service, command: python line_redis.py 7 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+  line-f2-l8: { <<: *base-service, command: python line_redis.py 8 2, depends_on: { init_db: { condition: service_completed_successfully } } }
+
+  # --- SERVIÇO DO DASHBOARD VISUAL ---
+  visualizer:
+    <<: *base-service
+    command: streamlit run kanban_visualizer.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    depends_on:
+      init_db:
+        condition: service_completed_successfully

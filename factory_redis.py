@@ -1,4 +1,4 @@
-# factory_redis.py
+# factory_redis.py (Versão Final com Lógica de Atribuição Corrigida)
 
 import redis
 import threading
@@ -24,19 +24,15 @@ class FactoryRedis:
         self.factory_id = str(factory_id)
         self.lines_number = lines_number
         self.entity_name = f'factory-{self.factory_id}-{self.fabric_type}'
-        
-        # <<< CORREÇÃO: Inicializa o status para evitar erro na primeira execução.
         self.last_stock_status = 'green'
-        
-        # Lista que guarda os produtos mais necessários (usado pela fábrica 'puxada').
-        self.products_most_needed = []
+        # <<< MUDANÇA: Armazena o buffer de estoque mais recente
+        self.last_stock_buffer = [0] * NUM_PRODUCTS
 
     def update_finished_goods_stock(self, stock_buffer):
-        """Atualiza o status do estoque com base nos dados recebidos do depósito de produtos."""
         print_update(f"Recebeu atualização do estoque de produtos: {stock_buffer}", self.entity_name)
+        self.last_stock_buffer = stock_buffer # Armazena o buffer para uso posterior
         
         total_stock = sum(stock_buffer)
-        # Define o status geral do estoque (Kanban de produtos acabados)
         if total_stock <= RED_ALERT_PRODUCT_STOCK * self.lines_number:
             self.last_stock_status = 'red'
         elif total_stock <= RED_ALERT_PRODUCT_STOCK * self.lines_number * 2:
@@ -45,63 +41,44 @@ class FactoryRedis:
             self.last_stock_status = 'green'
         print_update(f"Status do estoque de produtos definido como: {self.last_stock_status.upper()}", self.entity_name)
 
-        # Determina os produtos mais necessários para as linhas de produção excedentes
-        # (relevante para a Fábrica 2, que tem mais linhas do que produtos base)
-        if self.lines_number > NUM_PRODUCTS:
-            # Cria uma lista de tuplas (índice, valor) para facilitar a ordenação
-            indexed_stock = list(enumerate(stock_buffer))
-            # Ordena a lista com base no valor do estoque (do menor para o maior)
-            indexed_stock.sort(key=lambda x: x[1])
-            # Pega os índices dos produtos com menor estoque
-            self.products_most_needed = [item[0] for item in indexed_stock]
-            print_update(f"Ordem de prioridade de produção (do mais necessário para o menos): {self.products_most_needed}", self.entity_name)
-
     def order_daily_batch(self):
-        """Calcula o tamanho do lote para o dia e envia as ordens de produção para as linhas."""
-        # Se for fabricação 'empurrada', o lote é sempre o mesmo (60, no seu caso).
-        if self.fabric_type == 'empurrada':
-            lot_size = BATCH_SIZE
-        # Se for 'puxada', o lote varia com a demanda (status do estoque).
-        else:
+        lot_size = BATCH_SIZE
+        if self.fabric_type == 'puxada':
             if self.last_stock_status == 'green':
-                lot_size = BATCH_SIZE // 2  # Produz menos se o estoque está alto
-            elif self.last_stock_status == 'yellow':
-                lot_size = BATCH_SIZE      # Produção normal
-            else: # 'red'
-                lot_size = BATCH_SIZE * 2  # Produz o dobro se o estoque está baixo
+                lot_size = BATCH_SIZE // 2
+            elif self.last_stock_status == 'red':
+                lot_size = BATCH_SIZE * 2
         
         print_update(f"Iniciando ordens de produção do dia com tamanho de lote = {lot_size}", self.entity_name)
 
-        # Envia ordens para todas as suas linhas
+        # <<< LÓGICA DE ATRIBUIÇÃO CORRIGIDA E SIMPLIFICADA >>>
+        
+        # Cria uma lista de produtos ordenados do menor para o maior estoque.
+        # Ex: [(1, 546), (2, 685), (3, 743), (0, 767), (4, 890)]
+        # Onde o primeiro elemento é o índice do produto e o segundo é o estoque.
+        sorted_products_by_stock = sorted(enumerate(self.last_stock_buffer), key=lambda x: x[1])
+        
         for line_idx in range(self.lines_number):
-            # As primeiras linhas (0 a 4) produzem os produtos base (P1 a P5)
-            if line_idx < NUM_PRODUCTS:
-                product_to_produce = line_idx
-            # As linhas excedentes produzem os produtos mais necessários no momento
-            else:
-                if self.products_most_needed:
-                    # Pega o produto mais necessário da lista de prioridades
-                    product_to_produce = self.products_most_needed[line_idx - NUM_PRODUCTS]
-                else:
-                    # Caso fallback, se a lista estiver vazia, apenas produz P1
-                    product_to_produce = 0
+            if self.fabric_type == 'empurrada':
+                # Fábrica empurrada: cada linha tem seu produto fixo. Linha 1 -> P1, Linha 2 -> P2...
+                product_to_produce_idx = line_idx % NUM_PRODUCTS
+            else: # Fábrica puxada
+                # Fábrica puxada: distribui a produção com base na necessidade (menor estoque).
+                # A linha 1 produz o de menor estoque, a linha 2 o segundo menor, etc.
+                # O operador de módulo (%) garante que a gente recomece a lista se tiver mais linhas que produtos.
+                product_to_produce_idx = sorted_products_by_stock[line_idx % len(sorted_products_by_stock)][0]
             
-            self.order_to_line(line_idx, lot_size, product_to_produce)
+            self.order_to_line(line_idx, lot_size, product_to_produce_idx)
     
     def order_to_line(self, line_index, size, product_index):
-        """Formata e publica a mensagem de ordem de produção para uma linha específica."""
-        # <<< NOTA: O ID da linha no sistema vai de 1 em diante, mas nosso loop é 0-indexed.
-        # A linha que recebe a mensagem usa o ID que foi passado na sua inicialização.
         line_id_for_msg = line_index + 1
+        target_channel = f"channel:line:{self.factory_id}:{line_id_for_msg}"
+        msg = f"receive_order/{product_index}/{size}"
         
-        # Formato que a linha espera: "comando/id_linha/id_fabrica/id_produto/quantidade"
-        msg = f"receive_order/{line_id_for_msg}/{self.factory_id}/{product_index}/{size}"
-        
-        print_update(f"Enviando Ordem -> Linha: {line_id_for_msg}, Produto: {product_index + 1}, Qtd: {size}", self.entity_name)
-        self.r.publish("channel:line", msg)
+        print_update(f"Enviando Ordem para o canal {target_channel} -> Produto: {product_index + 1}, Qtd: {size}", self.entity_name)
+        self.r.publish(target_channel, msg)
 
     def listen(self):
-        """Ouve o canal 'channel:factory' por atualizações do estoque de produtos."""
         pubsub = self.r.pubsub()
         pubsub.subscribe("channel:factory")
         print_update("Ouvindo o canal 'channel:factory' por atualizações de estoque...", self.entity_name)
@@ -115,7 +92,6 @@ class FactoryRedis:
 
 def main():
     if len(sys.argv) != 4:
-        # <<< CORREÇÃO: O batch_size foi removido dos argumentos, pois é definido no utils.py
         print("Uso: python3 factory_redis.py [empurrada|puxada] [factory_id] [lines_number]")
         sys.exit(1)
 
@@ -133,17 +109,11 @@ def main():
     listener_thread = threading.Thread(target=fac.listen, daemon=True)
     listener_thread.start()
 
-    # Loop diário para enviar ordens de produção
     days = 0
     while days < DAYS_MAX:
         days += 1
         print_update(f"--- Dia {days} ---", fac.entity_name)
-        # A fábrica só envia ordens depois de receber a primeira atualização de estoque
-        if fac.last_stock_status:
-             fac.order_daily_batch()
-        else:
-             print_update("Aguardando primeira atualização de estoque para iniciar produção.", fac.entity_name)
-        
+        fac.order_daily_batch()
         time.sleep(TIME_SLEEP)
         
     print_update("Simulação terminada.", fac.entity_name)
