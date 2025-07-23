@@ -158,5 +158,3 @@ Abra no navegador: [http://localhost:8501](http://localhost:8501)
 - Os limites Kanban são definidos em constantes dentro do `utils.py`.
 
 ---
-
-## Conclusão
