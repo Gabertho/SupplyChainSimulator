@@ -92,7 +92,13 @@ python3 init_redis.py
 
 ### 3. Rodar os serviços com Docker
 
-Você pode usar o `docker-compose.yml` para orquestrar todos os containers, ou executar os scripts manualmente em terminais separados, por exemplo:
+Você pode usar o `docker-compose.yml` para orquestrar todos os containers:
+
+```bash
+docker compose up --build
+```
+
+Se preferir, pode executar os scripts manualmente em terminais separados, por exemplo:
 
 ```bash
 # Em terminais diferentes:
